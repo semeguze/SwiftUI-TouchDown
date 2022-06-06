@@ -21,10 +21,24 @@ struct ContentView: View {
           .background(.white)
           .shadow(color: .black.opacity(0.05), radius: 5, x: 0, y: -55)
         
-        Spacer()
+        ScrollView(.vertical, showsIndicators: false, content: {
+          VStack(spacing: 0) {
+            
+            FeaturedTabView()
+              .padding(.vertical, 10)
+            //  Now, for iPhone 12, I have experimented with different heights which looked best, and I settled with the value 290. For iPhone 12, width from UIScreen.main.bounds.width is 420.
+            //  So, I had to determine the ratio, which would eventually give me the desired height.
+            //  ratio = (width)/(height) = 420 / 290
+            //  => ratio = 1.475
+              .frame(height: UIScreen.main.bounds.width / 1.475)
+            
+            CategoryGridView()
+            
+            FooterView()
+              .padding(.horizontal)
+          }
+        })
         
-        FooterView()
-          .padding(.horizontal)
       }
       .background(colorBackground.ignoresSafeArea(.all, edges: .all))
     }
